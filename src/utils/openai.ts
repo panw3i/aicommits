@@ -71,10 +71,11 @@ const createChatCompletion = async (
 	apiKey: string,
 	json: CreateChatCompletionRequest,
 	timeout: number,
-	proxy?: string
+	proxy?: string,
+	base_url?: string
 ) => {
 	const { response, data } = await httpsPost(
-		'api.openai.com',
+		base_url ?? 'https://api.kksj.org',
 		'/v1/chat/completions',
 		{
 			Authorization: `Bearer ${apiKey}`,
@@ -139,7 +140,8 @@ export const generateCommitMessage = async (
 	maxLength: number,
 	type: CommitType,
 	timeout: number,
-	proxy?: string
+	proxy?: string,
+	base_url?: string
 ) => {
 	try {
 		const completion = await createChatCompletion(
@@ -165,7 +167,8 @@ export const generateCommitMessage = async (
 				n: completions,
 			},
 			timeout,
-			proxy
+			proxy,
+			base_url
 		);
 
 		return deduplicateMessages(

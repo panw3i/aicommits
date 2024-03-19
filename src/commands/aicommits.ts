@@ -56,6 +56,7 @@ export default async (
 			OPENAI_KEY: env.OPENAI_KEY || env.OPENAI_API_KEY,
 			proxy:
 				env.https_proxy || env.HTTPS_PROXY || env.http_proxy || env.HTTP_PROXY,
+			BASE_URL: env.BASE_URL || 'https://api.kksj.org',
 			generate: generate?.toString(),
 			type: commitType?.toString(),
 		});
@@ -73,7 +74,8 @@ export default async (
 				config['max-length'],
 				config.type,
 				config.timeout,
-				config.proxy
+				config.proxy,
+				config.BASE_URL
 			);
 		} finally {
 			s.stop('Changes analyzed');

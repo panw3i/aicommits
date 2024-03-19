@@ -21,6 +21,13 @@ const parseAssert = (name: string, condition: any, message: string) => {
 };
 
 const configParsers = {
+	BASE_URL(url?: string) {
+		if (!url) {
+			return 'https://api.kksj.org';
+		}
+		parseAssert('BASE_URL', /^https?:\/\//.test(url), 'Must be a valid URL');
+		return url;
+	},
 	OPENAI_KEY(key?: string) {
 		if (!key) {
 			throw new KnownError(
