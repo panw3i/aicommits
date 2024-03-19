@@ -23,7 +23,7 @@ const parseAssert = (name: string, condition: any, message: string) => {
 const configParsers = {
 	BASE_URL(url?: string) {
 		if (!url) {
-			return 'https://api.kksj.org';
+			return 'https://api.openai.com';
 		}
 		parseAssert('BASE_URL', /^https?:\/\//.test(url), 'Must be a valid URL');
 		return url;

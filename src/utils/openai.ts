@@ -75,7 +75,7 @@ const createChatCompletion = async (
 	base_url?: string
 ) => {
 	const { response, data } = await httpsPost(
-		base_url ?? 'https://api.kksj.org',
+		base_url?.replace(/^https?:\/\//, '') || 'api.openai.com',
 		'/v1/chat/completions',
 		{
 			Authorization: `Bearer ${apiKey}`,
@@ -177,6 +177,7 @@ export const generateCommitMessage = async (
 				.map((choice) => sanitizeMessage(choice.message!.content as string))
 		);
 	} catch (error) {
+		console.log(error);
 		const errorAsAny = error as any;
 		if (errorAsAny.code === 'ENOTFOUND') {
 			throw new KnownError(
